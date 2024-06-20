@@ -1,0 +1,82 @@
+:root{
+    --color-green : rgb(61, 183, 90);
+    --color-green-2:rgb(40, 118, 58);
+    --color-black: rgb(0, 0, 0);
+    --color-black-2: rgb(35, 35, 35);
+    --color-black-3: rgb(69, 69, 69);
+    --color-white: rgb(255, 255, 255);
+}
+
+body{
+    background-color: var(--color-black);
+    color: var(--color-white);
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    gap: 2rem;
+}
+
+#input-text,
+#btn-input{
+    padding: 1rem;
+    border: none;
+    border-radius: 2rem;
+    outline: none;
+}
+
+#btn-input{
+    background-color: var(--color-green);
+    color: var(--color-white);
+    transition: .4s;
+}
+
+#btn-input:hover{
+    background-color: var(--color-green-2);
+}
+
+ul{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 20rem;
+    padding: 1rem 2rem;
+    border-radius: 2rem;
+    transition: .4s;
+    
+}
+li:hover{
+    background-color: var(--color-black-2);
+}
+
+.btn-ok{
+    background-color: var(--color-green);
+    color: var(--color-white);
+    transition: .4s;
+    padding: 1rem;
+    border: none;
+    border-radius: 2rem;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn-ok:hover{
+    background-color: var(--color-green-2);
+}
