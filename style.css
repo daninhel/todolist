@@ -14,33 +14,32 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    gap: 2rem;
 }
 
-.content{
+.content-input{
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 1rem;
     gap: 2rem;
-}
 
-#input-text,
-#btn-input{
-    padding: 1rem;
-    border: none;
-    border-radius: 2rem;
-    outline: none;
-}
-
-#btn-input{
-    background-color: var(--color-green);
-    color: var(--color-white);
-    transition: .4s;
-}
-
-#btn-input:hover{
-    background-color: var(--color-green-2);
+    & #input-text, #btn-input{
+        padding: 1rem;
+        border: none;
+        border-radius: 2rem;
+        outline: none;
+    }
+    
+    & #btn-input{
+        background-color: var(--color-black-2);
+        color: var(--color-white);
+        transition: .4s;
+    }
+    
+    & #btn-input:hover{
+        background-color: var(--color-black-3);
+    }
 }
 
 ul{
@@ -50,20 +49,21 @@ ul{
     list-style: none;
     padding: 0;
     margin: 0;
-}
-
-li{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 20rem;
-    padding: 1rem 2rem;
-    border-radius: 2rem;
-    transition: .4s;
     
-}
-li:hover{
-    background-color: var(--color-black-2);
+    & li{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 20rem;
+        padding: 1rem 2rem;
+        border-radius: 2rem;
+        transition: .4s;
+        
+    }
+
+    & li:hover{
+        background-color: var(--color-black-2);
+    }
 }
 
 .btn-ok{
@@ -79,4 +79,32 @@ li:hover{
 
 .btn-ok:hover{
     background-color: var(--color-green-2);
+}
+
+#divBtn{
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+}
+
+.content-finish{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 20rem;
+    
+
+    & #btn-finish{
+        padding: 1rem;
+        border: none;
+        border-radius: 2rem;
+        outline: none;
+        background-color: var(--color-black-2);
+        color: var(--color-white);
+        transition: .4s;
+    }
+
+    & #btn-finish:hover{
+        background-color: var(--color-black-3);
+    }
 }
