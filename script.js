@@ -1,92 +1,125 @@
-// const addbutton = document.getElementById('btn-input')
+// const removeBtn = document.querySelectorAll("#btn-remove")
+// //função que remove o botão após tarefa ser concluida
+// removeBtn.forEach( botao => {
+//     botao.addEventListener('click', function(){
+//         let li = botao.parentNode
+//         let ul = li.parentNode
 
-// addbutton.addEventListener('click', function(){
-//     let input = document.getElementById("input-text"); //recebe o valor do campo de texto no HTML
-//     if (!input.value){
-//         alert('Está vazio, prencha para adicionar a lista')
-//     }
-//     // else if()
-//     else{
-//         let ul = document.getElementById("to-do-list")
-//         //Cria novos elementos para adicionar ao HTML
-//         let divBtn = document.createElement("div")
-//         let newLi = document.createElement("li")
-//         let checkBtn = document.createElement("button")
-//         let removeBtn = document.createElement("button")
-//         let editBtn = document.createElement("button")
-//         //atribui as propriedados dos elementos que serão adicionados
-//         checkBtn.innerHTML = '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAKtJREFUSEvtlNENgCAMRI9NdBOdTJ1EN3EVR9FLIGmA0KLyR3/UEN9Lr1WHxuUa89EFasI9ohDRAGACcMSZ/RER4bsXbI9glZKvAgm/AIx/dqDCKXvbgQmuCZglh8bWZZnhJQHhi4fPQlIFLwkIOp8OeGUHlLDCtmQHmvusSzOIJYRy181wbQY8lxI+V8EtAinhfbLn2t/OuqZhFhovObcKqsHhhS5Qo2se0Q2p5R4Zjo+H2gAAAABJRU5ErkJggg=="/>'
-//         checkBtn.className = 'btn-ok'
-//         checkBtn.id = 'btn-check'
-        
-//         removeBtn.innerHTML = '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAMFJREFUSEvFleENgkAMhR+bsIqb6CTgJLoJbqKbgE2OpMIrtPYI94+EfF/v9REaHHyag/nICq4A2u+QvTVoRiDwRwHfLUlG8C7Tz8NTSUYg0QxK8gRwW0YVFUgsHYALgE+Bi+TF4CKLCHTmAtcSeabHK9DwGaQlZts9AgYXIM08uoMUfG8HafiWoArcElSDW4KRVMK1UFYl1qKl4G+45wYp+F6LqvwqPB9aSnSKgLUocoufoT0tisBXez0loujEm+9P+14kGZlsXfAAAAAASUVORK5CYII="/>'
-//         removeBtn.className = 'btn-ok'
-//         removeBtn.id = 'btn-remove'
-
-//         editBtn.innerHTML = '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAIJJREFUSEtjZKAxYKSx+QzEWODAwMCwH4dDGoHiDfgcScgCfIaDzH3AwMCQyMDAcACXJegW/KdSkMHNpbsFVPIAwhhccUBuUGGYN2oBepyNBhHBVDwaRKNBhAgBmpdFoBoMVNmQAkCVjiPBrA1VADK8ngRLcNZshKpMUnyAVS3NLQAA6kwZGR1E8YsAAAAASUVORK5CYII="/>'
-//         editBtn.className = 'btn-ok'
-//         editBtn.id = 'btn-edit'
-
-//         divBtn.id = "divBtn"
-
-
-//         newLi.id = 'item'
-//         newLi.innerText = input
-//         divBtn.appendChild(removeBtn)
-//         divBtn.appendChild(editBtn)
-//         divBtn.appendChild(checkBtn)
-//         newLi.appendChild(divBtn)
-        
-//         console.log(newLi)
-//         ul.appendChild(newLi)
-//         //limpa o input
-//         document.getElementById("input-text").value = ''
-
-//         const remove = document.querySelectorAll("#btn-remove")
-//         //função que remove o botão após tarefa ser concluida
-//         remove.forEach( botao => {
-//             botao.addEventListener('click', function(){
-//             let li = botao.parentNode
-//             let ul = li.parentNode
-
-//             ul.removeChild(li)
-//             })
-//         })
-
-//         // const edit = document.querySelectorAll("#btn-edit")
-
-//         // edit.forEach(botao => {
-//         //     botao.addEventListener('click',function(){
-//         //         let li = botao.parentNode
-//         //         let ul = li.parentNode
-
-//         //         ul.removeChild(li)
-
-//         //         let input = createElement('input')
-//         //     })
-//         // })
-//     }
+//         ul.removeChild(li)
+//     })
 // })
 
 const LocalStorageKey = 'to-do-list' //Setando o local storage
 
-let valores = JSON.parse(localStorage.getItem(LocalStorageKey))
+// let valores = JSON.parse(localStorage.getItem(LocalStorageKey))
 
-valores.push({
-    name : input.value
-})
+// localStorage.setItem(LocalStorageKey, JSON.stringify(valores))
 
-localStorage.setItem(LocalStorageKey, JSON.stringify(valores))
 
-const showBtn = document.querySelector("#btn-finish")
+const editBtnImg = "./assents/icons/pencil.svg"
+const trashBtnImg = "./assents/icons/trash.svg"
+const checkBtnImg = "./assents/icons/check.svg"
 
-showBtn.addEventListener('click', function(){
-    let finishedList = document.querySelector("#finish-list") //Seleciona a lista que contem os concluidos
 
-    //Faz a verificação da propriedade "display" do elemento HTML, para decidir se deve ou não exibi-lo
-    if (getComputedStyle(finishedList).display == "none"){
-        finishedList.style.display = "block" //Exibe o conteudo
-    }else{
-        finishedList.style.display = "none" //Oculta o conteudo
+//Guardando o objeto btn-input dentro da constante
+const addBtn = document.querySelector('#btn-input')
+//Adicionando a função ao btn-input
+addBtn.addEventListener('click', function(){
+    let input = document.querySelector('#input-text') //Acessa a lista
+    //Verifica se o campo de texto não está vazio
+    if(!input.value.trim()){
+        alert('Digite o nome da tarefa para poder adicionar') //feedback para o usuário
+    }
+    //Verificar se o conteudo do input já está na lista
+    // else if{ valores.push({ name : input.value }) }
+    else{
+        createItem(input)
     }
 })
+
+
+//Guardando o objeto btn-finish dentro da constante
+const showBtn = document.querySelector('#btn-finish')
+//Adicionando a função ao btn-finish
+showBtn.addEventListener('click', function(){
+    let finishedList = document.querySelector('#finish-list') //Seleciona a lista que contem os concluidos
+
+    //Faz a verificação da propriedade "display" do elemento HTML, para decidir se deve ou não exibi-lo
+    if (getComputedStyle(finishedList).display == 'none'){
+        finishedList.style.display = 'block' //Exibe o conteudo
+    }
+    else{
+        finishedList.style.display = 'none' //Oculta o conteudo
+    }
+})
+
+
+//Guardando o objeto dentro da varivel
+const backMode = document.querySelector("#btn-switch-mode")
+//adiciona a função de trocar do modo claro para o escuro ou o contrario no botão
+backMode.addEventListener('click',function(){
+    let body = document.querySelector('body')// seleciona o body
+    //verifica se o modo que está
+    if(body.style.backgroundColor == "var(--color-black)"){
+        whiteMode(body)
+    }
+    else{
+        darkMode(body)
+    }
+})
+
+function whiteMode(body){
+    body.style.backgroundColor = "var(--color-white)"
+    body.style.color = "var(--color-black)"
+
+    // let UiBtns = document.querySelector('.btn-ui')
+    // UiBtns.backgroundColor = "var(--color-white)"
+    // UiBtns.border = "solid 2px"
+}
+
+function darkMode(body){
+    body.style.backgroundColor = "var(--color-black)"
+    body.style.color = "var(--color-white)"
+}
+
+function createItem(input){
+            //Acessando a lista
+            let lista = document.querySelector('#to-do-list')
+            //criando elementos parar compor a li
+            let li = document.createElement('li')
+            let editBtn = document.createElement('button')
+            let trashBtn = document.createElement('button')
+            let checkBtn = document.createElement('button')
+            let imageEdit = document.createElement('img')
+            let imageTrash = document.createElement('img')
+            let imageCheck = document.createElement('img')
+            let DivBtns = document.createElement('div')
+            //atribuindo o valor do input como texto na li
+            li.textContent = input.value
+            //atribuindo caracterristacs do editBtn
+            imageEdit.src = editBtnImg
+            editBtn.appendChild(imageEdit)
+            editBtn.className = 'btn-ok'
+            editBtn.id = 'edit-btn'
+            //atribuindo caracterristacs do editBtn
+            imageTrash.src = trashBtnImg
+            trashBtn.appendChild(imageTrash)
+            trashBtn.className = 'btn-ok'
+            trashBtn.id = 'trash-btn'
+            //atribuindo caracterristacs do editBtn
+            imageCheck.src = checkBtnImg
+            checkBtn.appendChild(imageCheck)
+            checkBtn.className = 'btn-ok'
+            checkBtn.id = 'check-btn'
+    
+            DivBtns.className = 'action-buttons'
+    
+            //Adicionando elementos ao HTML
+            DivBtns.appendChild(trashBtn)
+            DivBtns.appendChild(editBtn)
+            DivBtns.appendChild(checkBtn)
+            li.appendChild(DivBtns)
+            lista.appendChild(li)
+            //Limpa o input de texto
+            input.value = ''
+}
