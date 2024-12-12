@@ -1,13 +1,4 @@
-// const removeBtn = document.querySelectorAll("#btn-remove")
-// //função que remove o botão após tarefa ser concluida
-// removeBtn.forEach( botao => {
-//     botao.addEventListener('click', function(){
-//         let li = botao.parentNode
-//         let ul = li.parentNode
 
-//         ul.removeChild(li)
-//     })
-// })
 
 const LocalStorageKey = 'to-do-list' //Setando o local storage
 
@@ -17,7 +8,7 @@ const LocalStorageKey = 'to-do-list' //Setando o local storage
 
 
 const editBtnImg = "./assents/icons/pencil.svg"
-const trashBtnImg = "./assents/icons/trash.svg"
+const RemoveBtnImg = "./assents/icons/trash.svg"
 const checkBtnImg = "./assents/icons/check.svg"
 
 
@@ -37,6 +28,31 @@ addBtn.addEventListener('click', function(){
     }
 })
 
+//Guardando a lista de objetos btn-remove dentro da constante
+const removeBtnn = document.querySelectorAll("#btn-remove")
+//função que remove o botão após tarefa ser concluida
+removeBtnn.forEach( botao => {
+    botao.addEventListener('click', function(){
+        //Acesso aos elementos pai
+        let div = botao.parentNode
+        let li = div.parentNode
+        let ul = li.parentNode
+        // Remove o item
+        ul.removeChild(li)
+    })
+})
+
+//Guardando a lista de objetos btn-edit dentro da constante
+const editBtn = document.querySelectorAll("#btn-edit")
+
+editBtn.forEach( botao => {
+    botao.addEventListener('click', function(){
+        let div = botao.parentNode
+        let li = div.parentNode
+
+        li.textContent = ''
+    })
+})
 
 //Guardando o objeto btn-finish dentro da constante
 const showBtn = document.querySelector('#btn-finish')
@@ -53,11 +69,10 @@ showBtn.addEventListener('click', function(){
     }
 })
 
-
 //Guardando o objeto dentro da varivel
-const backMode = document.querySelector("#btn-switch-mode")
+const switchMode = document.querySelector("#btn-switch-mode")
 //adiciona a função de trocar do modo claro para o escuro ou o contrario no botão
-backMode.addEventListener('click',function(){
+switchMode.addEventListener('click',function(){
     let body = document.querySelector('body')// seleciona o body
     //verifica se o modo que está
     if(body.style.backgroundColor == "var(--color-black)"){
@@ -88,10 +103,10 @@ function createItem(input){
             //criando elementos parar compor a li
             let li = document.createElement('li')
             let editBtn = document.createElement('button')
-            let trashBtn = document.createElement('button')
+            let removeBtn = document.createElement('button')
             let checkBtn = document.createElement('button')
             let imageEdit = document.createElement('img')
-            let imageTrash = document.createElement('img')
+            let imageRemove = document.createElement('img')
             let imageCheck = document.createElement('img')
             let DivBtns = document.createElement('div')
             //atribuindo o valor do input como texto na li
@@ -99,23 +114,23 @@ function createItem(input){
             //atribuindo caracterristacs do editBtn
             imageEdit.src = editBtnImg
             editBtn.appendChild(imageEdit)
-            editBtn.className = 'btn-ok'
-            editBtn.id = 'edit-btn'
+            editBtn.id = 'btn-edit'
+            editBtn.className = 'action-btn'
             //atribuindo caracterristacs do editBtn
-            imageTrash.src = trashBtnImg
-            trashBtn.appendChild(imageTrash)
-            trashBtn.className = 'btn-ok'
-            trashBtn.id = 'trash-btn'
+            imageRemove.src = RemoveBtnImg
+            removeBtn.appendChild(imageRemove)
+            removeBtn.id = 'btn-remove'
+            removeBtn.className = 'action-btn'
             //atribuindo caracterristacs do editBtn
             imageCheck.src = checkBtnImg
             checkBtn.appendChild(imageCheck)
-            checkBtn.className = 'btn-ok'
-            checkBtn.id = 'check-btn'
+            checkBtn.id = 'btn-check'
+            checkBtn.className = 'action-btn'
     
             DivBtns.className = 'action-buttons'
     
             //Adicionando elementos ao HTML
-            DivBtns.appendChild(trashBtn)
+            DivBtns.appendChild(removeBtn)
             DivBtns.appendChild(editBtn)
             DivBtns.appendChild(checkBtn)
             li.appendChild(DivBtns)
