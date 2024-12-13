@@ -87,14 +87,38 @@ function whiteMode(body){
     body.style.backgroundColor = "var(--color-white)"
     body.style.color = "var(--color-black)"
 
-    // let UiBtns = document.querySelector('.btn-ui')
-    // UiBtns.backgroundColor = "var(--color-white)"
-    // UiBtns.border = "solid 2px"
+    // Seleciona todos os botões com a classe .btn-ui
+    let UiBtns = document.querySelectorAll('.btn-ui');
+    UiBtns.forEach(btn => {
+        btn.style.backgroundColor = "var(--color-white)";
+        // btn.style.color = "var(--color-black)";
+        btn.style.border = "solid 1px var(--color-black-3)";
+    });
+
+    // Alterar preenchimento de ícones SVG
+    let svgs = document.querySelectorAll('svg');
+    svgs.forEach(svg => {
+        svg.style.fill = "var(--color-black)"; // Cor de preenchimento no modo claro
+    });
 }
 
 function darkMode(body){
     body.style.backgroundColor = "var(--color-black)"
     body.style.color = "var(--color-white)"
+
+    // Seleciona todos os botões com a classe .btn-ui
+    let UiBtns = document.querySelectorAll('.btn-ui');
+    UiBtns.forEach(btn => {
+        btn.style.backgroundColor = "var(--color-black-2)";
+        // btn.style.color = "var(--color-black)";
+        btn.style.border = "none";
+    });
+    
+    // Alterar preenchimento de ícones SVG
+    let svgs = document.querySelectorAll('svg');
+    svgs.forEach(svg => {
+        svg.style.fill = "var(--color-white)"; // Cor de preenchimento no modo claro
+    });
 }
 
 function createItem(input){

@@ -8,6 +8,8 @@
 }
 
 body{
+    height: 100%;
+    margin: 1.5rem 0;
     background-color: var(--color-black);
     color: var(--color-white);
     font-family: Arial, Helvetica, sans-serif;
@@ -16,6 +18,8 @@ body{
     align-items: center;
     gap: 2rem;
 }
+
+/* listas */
 
 .content-input{
     display: flex;
@@ -32,6 +36,29 @@ body{
     }
 }
 
+.content-finish{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 25rem;
+    padding: 1rem 2rem;
+
+    & li{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 25rem;
+        padding: 1rem 2rem;
+        border-radius: 2rem;
+        transition: .4s;
+        
+    }
+
+    & li:hover{
+        background-color: var(--color-black-2);
+    }
+}
+
 ul{
     display: flex;
     flex-direction: column;
@@ -44,7 +71,7 @@ ul{
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width: 20rem;
+        width: 25rem;
         padding: 1rem 2rem;
         border-radius: 2rem;
         transition: .4s;
@@ -55,6 +82,8 @@ ul{
         background-color: var(--color-black-2);
     }
 }
+
+/* Ui-buttons */
 
 .action-btn{
     background-color: var(--color-green);
@@ -71,19 +100,12 @@ ul{
     background-color: var(--color-green-2);
 }
 
-#divBtn{
+.action-buttons{
     display: flex;
     flex-direction: row;
     gap: 5%;
 }
 
-.content-finish{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 20rem;
-}
-/* Ui-buttons */
 svg{
     fill: var(--color-white);
     height: 1rem;
@@ -101,4 +123,10 @@ svg{
 
 .btn-ui:hover{
     background-color: var(--color-black-3);
+}
+
+#theme {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
 }
