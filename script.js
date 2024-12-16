@@ -1,16 +1,14 @@
-
-
-const LocalStorageKey = 'to-do-list' //Setando o local storage
+//Iniciando chaves do local storage
+const LocalStorageKeyToDo = 'to-do-list' 
+const LocalStorageKeyFinish = 'finish-list'
+const LocalStorageKeyTheme = 'theme' 
+//Tema padrão
+localStorage.setItem(LocalStorageKeyTheme, 'default')
 
 // let valores = JSON.parse(localStorage.getItem(LocalStorageKey))
-
 // localStorage.setItem(LocalStorageKey, JSON.stringify(valores))
 
-
-const editBtnImg = "./assents/icons/pencil.svg"
-const RemoveBtnImg = "./assents/icons/trash.svg"
-const checkBtnImg = "./assents/icons/check.svg"
-
+//Funções dos botões
 
 //Guardando o objeto btn-input dentro da constante
 const addBtn = document.querySelector('#btn-input')
@@ -23,35 +21,12 @@ addBtn.addEventListener('click', function(){
     }
     //Verificar se o conteudo do input já está na lista
     // else if{ valores.push({ name : input.value }) }
+    //Cria o elemento
     else{
+        // Tarefas += { nomeTarefa: input.value }
+        // console.log(valores)
         createItem(input)
     }
-})
-
-//Guardando a lista de objetos btn-remove dentro da constante
-const removeBtnn = document.querySelectorAll("#btn-remove")
-//função que remove o botão após tarefa ser concluida
-removeBtnn.forEach( botao => {
-    botao.addEventListener('click', function(){
-        //Acesso aos elementos pai
-        let div = botao.parentNode
-        let li = div.parentNode
-        let ul = li.parentNode
-        // Remove o item
-        ul.removeChild(li)
-    })
-})
-
-//Guardando a lista de objetos btn-edit dentro da constante
-const editBtn = document.querySelectorAll("#btn-edit")
-
-editBtn.forEach( botao => {
-    botao.addEventListener('click', function(){
-        let div = botao.parentNode
-        let li = div.parentNode
-
-        li.textContent = ''
-    })
 })
 
 //Guardando o objeto btn-finish dentro da constante
@@ -69,57 +44,10 @@ showBtn.addEventListener('click', function(){
     }
 })
 
-//Guardando o objeto dentro da varivel
-const switchMode = document.querySelector("#btn-switch-mode")
-//adiciona a função de trocar do modo claro para o escuro ou o contrario no botão
-switchMode.addEventListener('click',function(){
-    let body = document.querySelector('body')// seleciona o body
-    //verifica se o modo que está
-    if(body.style.backgroundColor == "var(--color-black)"){
-        whiteMode(body)
-    }
-    else{
-        darkMode(body)
-    }
-})
-
-function whiteMode(body){
-    body.style.backgroundColor = "var(--color-white)"
-    body.style.color = "var(--color-black)"
-
-    // Seleciona todos os botões com a classe .btn-ui
-    let UiBtns = document.querySelectorAll('.btn-ui');
-    UiBtns.forEach(btn => {
-        btn.style.backgroundColor = "var(--color-white)";
-        // btn.style.color = "var(--color-black)";
-        btn.style.border = "solid 1px var(--color-black-3)";
-    });
-
-    // Alterar preenchimento de ícones SVG
-    let svgs = document.querySelectorAll('svg');
-    svgs.forEach(svg => {
-        svg.style.fill = "var(--color-black)"; // Cor de preenchimento no modo claro
-    });
-}
-
-function darkMode(body){
-    body.style.backgroundColor = "var(--color-black)"
-    body.style.color = "var(--color-white)"
-
-    // Seleciona todos os botões com a classe .btn-ui
-    let UiBtns = document.querySelectorAll('.btn-ui');
-    UiBtns.forEach(btn => {
-        btn.style.backgroundColor = "var(--color-black-2)";
-        // btn.style.color = "var(--color-black)";
-        btn.style.border = "none";
-    });
-    
-    // Alterar preenchimento de ícones SVG
-    let svgs = document.querySelectorAll('svg');
-    svgs.forEach(svg => {
-        svg.style.fill = "var(--color-white)"; // Cor de preenchimento no modo claro
-    });
-}
+//Atribuindo icones á variaveis para usar mais tarde dentro do createItem
+const editBtnImg = "./assents/icons/pencil.svg"
+const RemoveBtnImg = "./assents/icons/trash.svg"
+const checkBtnImg = "./assents/icons/check.svg"
 
 function createItem(input){
             //Acessando a lista
@@ -152,7 +80,6 @@ function createItem(input){
             checkBtn.className = 'action-btn'
     
             DivBtns.className = 'action-buttons'
-    
             //Adicionando elementos ao HTML
             DivBtns.appendChild(removeBtn)
             DivBtns.appendChild(editBtn)
@@ -161,4 +88,101 @@ function createItem(input){
             lista.appendChild(li)
             //Limpa o input de texto
             input.value = ''
+            //Chama função que atribui os funcionamento dos botões
+            removeItem()
+            editItem()
+            checkItem()
+}
+
+function removeItem(){
+    //Guardando a lista de objetos btn-remove dentro da constante
+    const removeBtnn = document.querySelectorAll("#btn-remove")
+    //Pecorre a lista de objetos atribuindo a função a acada objeto
+    removeBtnn.forEach( botao => {
+        //Função que remove a tarefa após ser concluida
+        botao.addEventListener('click', function(){
+            //Acesso aos elementos pai
+            let div = botao.parentNode
+            let li = div.parentNode
+            let ul = li.parentNode
+            // Remove o item
+            ul.removeChild(li)
+        })
+    })
+}
+
+function editItem(){
+    //Guardando a lista de objetos btn-edit dentro da constante
+    const editBtn = document.querySelectorAll("#btn-edit")
+    //Pecorre a lista de objetos atribuindo a função a acada objeto
+    editBtn.forEach( botao => {
+        //Função que edita a tarefa
+        botao.addEventListener('click', function(){
+            let div = botao.parentNode
+            let li = div.parentNode
+
+            li.textContent = ''
+        })
+    })
+}
+
+function checkItem(){
+    //Guardando a lista de objetos btn-edit dentro da constante
+    const checkBtn = document.querySelectorAll('#btn-check')
+    //Pecorre a lista de objetos atribuindo a função a acada objeto
+    checkBtn.forEach( botao => {
+        //Função que edita o botão após tarefa ser concluida
+        botao.addEventListener('click', function(){
+            let div = botao.parentNode
+            let li = div.parentNode
+
+            let lista = document.querySelector('#to-do-list')
+            let concluidos = document.querySelector('#finish-list')
+
+            concluidos.appendChild(li)
+            lista.removeChild(li)
+        })
+    })
+}
+
+//Alteração de tema
+
+//Carrega o tema do LocalStorage no carregamento da página
+document.addEventListener('DOMContentLoaded', function () {
+    if (localStorage.getItem(LocalStorageKeyTheme) === 'dark' || localStorage.getItem(LocalStorageKeyTheme) === 'default') {
+        darkMode();
+    } else {
+        whiteMode();
+    }
+});
+
+//Guardando o objeto dentro da varivel
+const switchMode = document.querySelector("#btn-switch-mode")
+//adiciona a função de trocar do modo claro para o escuro ou o contrario no botão
+switchMode.addEventListener('click',function(){
+    if(localStorage.getItem(LocalStorageKeyTheme) === "dark"){
+        lightMode()//Função que muda o CSS para o modo claro
+
+    }
+    else{
+        darkMode()//Função que muda o CSS para o modo escuro
+    }
+})
+
+function lightMode(){
+    localStorage.setItem(LocalStorageKeyTheme, 'white')
+    document.querySelector('body').className = 'light-mode'
+    document.querySelector('svg').className = 'light-mode'
+    document.querySelectorAll('.btn-ui').forEach(botao => {
+        botao.className = 'btn-ui light-mode'
+    })
+}
+
+function darkMode(){
+    localStorage.setItem(LocalStorageKeyTheme, 'dark')
+    document.querySelector('body').className = 'dark-mode'
+
+    document.querySelectorAll('.btn-ui').forEach(botao => {
+        botao.className = 'btn-ui dark-mode'
+    })
 }

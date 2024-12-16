@@ -5,11 +5,13 @@
     --color-black-2: rgb(35, 35, 35);
     --color-black-3: rgb(69, 69, 69);
     --color-white: rgb(255, 255, 255);
+    --color-white-2: rgb(209, 209, 209);
+    --color-white-3: rgba(166, 166, 166, 0.65);
 }
 
 body{
-    height: 100%;
-    margin: 1.5rem 0;
+    height: 100vh;
+    margin: 1.5rem 0 0.8rem 0;
     background-color: var(--color-black);
     color: var(--color-white);
     font-family: Arial, Helvetica, sans-serif;
@@ -17,6 +19,9 @@ body{
     flex-direction: column;
     align-items: center;
     gap: 2rem;
+    & footer{
+        margin-top: auto;
+    }
 }
 
 /* listas */
@@ -87,12 +92,10 @@ ul{
 
 .action-btn{
     background-color: var(--color-green);
-    color: var(--color-white);
     transition: .4s;
-    padding: 1rem;
+    padding: 0.8rem;
     border: none;
     border-radius: 2rem;
-    outline: none;
     cursor: pointer;
 }
 
@@ -103,7 +106,7 @@ ul{
 .action-buttons{
     display: flex;
     flex-direction: row;
-    gap: 5%;
+    gap: 0.4rem;
 }
 
 svg{
@@ -119,14 +122,51 @@ svg{
     outline: none;
     background-color: var(--color-black-2);
     transition: .4s;
+    cursor: pointer;
 }
 
 .btn-ui:hover{
     background-color: var(--color-black-3);
 }
 
-#theme {
+#btn-switch-mode {
     position: fixed;
     top: 1.5rem;
     right: 1.5rem;
+}
+
+/* dark mode */
+body.dark-mode{
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.btn-ui.dark-mode{
+    background-color: var(--color-black-2);
+}
+
+svg.dark-mode{
+    fill: var(--color-white-2);
+}
+
+.btn-ui.dark-mode:hover{
+    background-color: var(--color-black-3);
+}
+
+/* light mode */
+body.light-mode{
+    background-color: var(--color-white);
+    color: var(--color-black);
+}
+
+.btn-ui.light-mode{
+    background-color: var(--color-white-2);
+}
+
+svg.light-mode{
+    fill: var(--color-black-2);
+}
+
+.btn-ui.light-mode:hover{
+    background-color: var(--color-black-3);
 }
