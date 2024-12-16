@@ -2,11 +2,17 @@
 const LocalStorageKeyToDo = 'to-do-list' 
 const LocalStorageKeyFinish = 'finish-list'
 const LocalStorageKeyTheme = 'theme' 
-//Tema padrão
-localStorage.setItem(LocalStorageKeyTheme, 'default')
 
-// let valores = JSON.parse(localStorage.getItem(LocalStorageKey))
-// localStorage.setItem(LocalStorageKey, JSON.stringify(valores))
+//Carrega os dados do LocalStorage no carregamento da página
+document.addEventListener('DOMContentLoaded', function () {
+    showValues()
+    
+    if (localStorage.getItem(LocalStorageKeyTheme) === 'dark' || localStorage.getItem(LocalStorageKeyTheme) === 'default') {
+        darkMode();
+    } else {
+        lightMode();
+    }
+});
 
 //Funções dos botões
 
@@ -20,7 +26,7 @@ addBtn.addEventListener('click', function(){
         alert('Digite o nome da tarefa para poder adicionar') //feedback para o usuário
     }
     //Verificar se o conteudo do input já está na lista
-    // else if{ valores.push({ name : input.value }) }
+    else if(validateIfExistsNewTask()){ alert('A tarefa já existe') }
     //Cria o elemento
     else{
         // Tarefas += { nomeTarefa: input.value }
@@ -50,48 +56,18 @@ const RemoveBtnImg = "./assents/icons/trash.svg"
 const checkBtnImg = "./assents/icons/check.svg"
 
 function createItem(input){
-            //Acessando a lista
-            let lista = document.querySelector('#to-do-list')
-            //criando elementos parar compor a li
-            let li = document.createElement('li')
-            let editBtn = document.createElement('button')
-            let removeBtn = document.createElement('button')
-            let checkBtn = document.createElement('button')
-            let imageEdit = document.createElement('img')
-            let imageRemove = document.createElement('img')
-            let imageCheck = document.createElement('img')
-            let DivBtns = document.createElement('div')
-            //atribuindo o valor do input como texto na li
-            li.textContent = input.value
-            //atribuindo caracterristacs do editBtn
-            imageEdit.src = editBtnImg
-            editBtn.appendChild(imageEdit)
-            editBtn.id = 'btn-edit'
-            editBtn.className = 'action-btn'
-            //atribuindo caracterristacs do editBtn
-            imageRemove.src = RemoveBtnImg
-            removeBtn.appendChild(imageRemove)
-            removeBtn.id = 'btn-remove'
-            removeBtn.className = 'action-btn'
-            //atribuindo caracterristacs do editBtn
-            imageCheck.src = checkBtnImg
-            checkBtn.appendChild(imageCheck)
-            checkBtn.id = 'btn-check'
-            checkBtn.className = 'action-btn'
-    
-            DivBtns.className = 'action-buttons'
-            //Adicionando elementos ao HTML
-            DivBtns.appendChild(removeBtn)
-            DivBtns.appendChild(editBtn)
-            DivBtns.appendChild(checkBtn)
-            li.appendChild(DivBtns)
-            lista.appendChild(li)
+            //Armazenando lista para passa-lá como argumento
+            let list = document.querySelector('#to-do-list')
+            //Acessa os dados o LocalStorage os guardando como JSON em uma variavel
+            let values = JSON.parse(localStorage.getItem(LocalStorageKeyToDo) || "[]")
+            // Função que compoe a li da tarefa
+            taskCompose(list, input.value)
+            //Adiciona o item criado no final da lista
+            values.push({name: input.value})
+            //Passa a nova 'lista' para o LocalStorage
+            localStorage.setItem(LocalStorageKeyToDo,JSON.stringify(values))
             //Limpa o input de texto
             input.value = ''
-            //Chama função que atribui os funcionamento dos botões
-            removeItem()
-            editItem()
-            checkItem()
 }
 
 function removeItem(){
@@ -107,6 +83,13 @@ function removeItem(){
             let ul = li.parentNode
             // Remove o item
             ul.removeChild(li)
+            // Remove do LocalStorage
+
+            let values = JSON.parse(localStorage.getItem(LocalStorageKeyToDo) || "[]")
+            let index = values.findIndex(x => x.name == data)
+            values.splice(index,1)
+            localStorage.setItem(LocalStorageKeyToDo,JSON.stringify(values))
+            showValues()
         })
     })
 }
@@ -145,16 +128,72 @@ function checkItem(){
     })
 }
 
-//Alteração de tema
+function taskCompose(list,taskContent){
+            //criando elementos parar compor a li
+            let li = document.createElement('li')
+            let editBtn = document.createElement('button')
+            let removeBtn = document.createElement('button')
+            let checkBtn = document.createElement('button')
+            let imageEdit = document.createElement('img')
+            let imageRemove = document.createElement('img')
+            let imageCheck = document.createElement('img')
+            let DivBtns = document.createElement('div')
+            //atribuindo o valor do input como texto na li
+            li.textContent = taskContent
+            //atribuindo caracterristacs do editBtn
+            imageEdit.src = editBtnImg
+            editBtn.appendChild(imageEdit)
+            editBtn.id = 'btn-edit'
+            editBtn.className = 'action-btn'
+            //atribuindo caracterristacs do editBtn
+            imageRemove.src = RemoveBtnImg
+            removeBtn.appendChild(imageRemove)
+            removeBtn.id = 'btn-remove'
+            removeBtn.className = 'action-btn'
+            //atribuindo caracterristacs do editBtn
+            imageCheck.src = checkBtnImg
+            checkBtn.appendChild(imageCheck)
+            checkBtn.id = 'btn-check'
+            checkBtn.className = 'action-btn'
+            
+            DivBtns.className = 'action-buttons'
+            //Adicionando elementos ao HTML
+            DivBtns.appendChild(removeBtn)
+            DivBtns.appendChild(editBtn)
+            DivBtns.appendChild(checkBtn)
+            li.appendChild(DivBtns)
+            list.appendChild(li)
+            //Chama função que atribui os funcionamento dos botões
+            removeItem()
+            editItem()
+            checkItem()
+}
 
-//Carrega o tema do LocalStorage no carregamento da página
-document.addEventListener('DOMContentLoaded', function () {
-    if (localStorage.getItem(LocalStorageKeyTheme) === 'dark' || localStorage.getItem(LocalStorageKeyTheme) === 'default') {
-        darkMode();
-    } else {
-        whiteMode();
+function showValues(){
+    //Acessa os dados o LocalStorage os guardando como JSON em uma variavel
+    let values = JSON.parse(localStorage.getItem(LocalStorageKeyToDo) || "[]")
+    //Armazenando lista para passa-lá como argumento
+    let list = document.querySelector('#to-do-list')
+    let finishList = document.querySelector('#finish-listt')
+    list.innerHTML = ''
+    
+    for(let i = 0; i < values.length; i++){
+        taskCompose(list, values[i]['name'])
     }
-});
+
+    // for(let i = 0; i < values.length; i++){
+    //     finishTaskCompose(finishList, values[i]['name'])
+    // }
+}
+
+function validateIfExistsNewTask(){
+    let values = JSON.parse(localStorage.getItem(LocalStorageKeyToDo) || "[]")
+    let input = document.querySelector('#input-text').value
+    let exists = values.find(x => x.name == input)
+    return !exists ? false : true
+}
+
+//Alteração de tema
 
 //Guardando o objeto dentro da varivel
 const switchMode = document.querySelector("#btn-switch-mode")
@@ -170,9 +209,11 @@ switchMode.addEventListener('click',function(){
 })
 
 function lightMode(){
-    localStorage.setItem(LocalStorageKeyTheme, 'white')
+    localStorage.setItem(LocalStorageKeyTheme, 'light')
     document.querySelector('body').className = 'light-mode'
-    document.querySelector('svg').className = 'light-mode'
+    document.querySelectorAll('svg').forEach(img => {
+        img.className = 'light-mode'
+    })
     document.querySelectorAll('.btn-ui').forEach(botao => {
         botao.className = 'btn-ui light-mode'
     })
