@@ -7,12 +7,14 @@ const LocalStorageKeyTheme = 'theme'
 document.addEventListener('DOMContentLoaded', function () {
     showValues()
     
-    if (localStorage.getItem(LocalStorageKeyTheme) === 'dark' || localStorage.getItem(LocalStorageKeyTheme) === 'default') {
-        darkMode();
-    } else {
-        lightMode();
+    const savedTheme = localStorage.getItem(LocalStorageKeyTheme) || 'default'
+
+    if (savedTheme === 'dark' || savedTheme === 'default') {
+        darkMode()
+    } else if (savedTheme === 'light') {
+        lightMode()
     }
-});
+})
 
 //Funções dos botões
 
@@ -83,13 +85,12 @@ function removeItem(){
             let ul = li.parentNode
             // Remove o item
             ul.removeChild(li)
-            // Remove do LocalStorage
-
+            // Remove do LocalStorage ** comentar **
             let values = JSON.parse(localStorage.getItem(LocalStorageKeyToDo) || "[]")
-            let index = values.findIndex(x => x.name == data)
+            let index = values.findIndex(x => x.name == li.textContent)
             values.splice(index,1)
             localStorage.setItem(LocalStorageKeyToDo,JSON.stringify(values))
-            showValues()
+            // showValues()
         })
     })
 }
@@ -139,6 +140,8 @@ function taskCompose(list,taskContent){
             let imageCheck = document.createElement('img')
             let DivBtns = document.createElement('div')
             //atribuindo o valor do input como texto na li
+            li.setAttribute('data-aos', 'fade-up-left')
+            li.setAttribute('data-aos-duration', '1000')
             li.textContent = taskContent
             //atribuindo caracterristacs do editBtn
             imageEdit.src = editBtnImg
@@ -211,19 +214,17 @@ switchMode.addEventListener('click',function(){
 function lightMode(){
     localStorage.setItem(LocalStorageKeyTheme, 'light')
     document.querySelector('body').className = 'light-mode'
-    document.querySelectorAll('svg').forEach(img => {
-        img.className = 'light-mode'
-    })
-    document.querySelectorAll('.btn-ui').forEach(botao => {
-        botao.className = 'btn-ui light-mode'
-    })
+    document.querySelectorAll('.btn-ui').forEach(botao => {botao.className = 'btn-ui light-mode'})
+    document.querySelector('#input-text').className = 'light-mode'
+    document.querySelectorAll('svg').forEach(img => {img.style.fill = 'var(--color-black-2)'})
+    document.querySelectorAll('li').forEach(item => {item.className = 'light-mode'})
 }
 
 function darkMode(){
     localStorage.setItem(LocalStorageKeyTheme, 'dark')
     document.querySelector('body').className = 'dark-mode'
-
-    document.querySelectorAll('.btn-ui').forEach(botao => {
-        botao.className = 'btn-ui dark-mode'
-    })
+    document.querySelectorAll('.btn-ui').forEach(botao => {botao.className = 'btn-ui dark-mode'})
+    document.querySelector('#input-text').className = 'light-mode'
+    document.querySelectorAll('svg').forEach(img => {img.style.fill = 'var(--color-white-2)'})
+    document.querySelectorAll('li').forEach(item => {item.className = 'dark-mode'})
 }

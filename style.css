@@ -10,7 +10,7 @@
 }
 
 body{
-    height: 100vh;
+    height: 100%;
     margin: 1.5rem 0 0.8rem 0;
     background-color: var(--color-black);
     color: var(--color-white);
@@ -19,6 +19,7 @@ body{
     flex-direction: column;
     align-items: center;
     gap: 2rem;
+    transition: .4s;
     & footer{
         margin-top: auto;
     }
@@ -82,10 +83,6 @@ ul{
         transition: .4s;
         
     }
-
-    & li:hover{
-        background-color: var(--color-black-2);
-    }
 }
 
 /* Ui-buttons */
@@ -110,9 +107,9 @@ ul{
 }
 
 svg{
-    fill: var(--color-white);
     height: 1rem;
     width: 1rem;
+    transition: .4s;
 }
 
 .btn-ui{
@@ -129,10 +126,11 @@ svg{
     background-color: var(--color-black-3);
 }
 
-#btn-switch-mode {
+#btn-switch-mode{
     position: fixed;
     top: 1.5rem;
     right: 1.5rem;
+    transition: .4s;
 }
 
 /* dark mode */
@@ -145,12 +143,20 @@ body.dark-mode{
     background-color: var(--color-black-2);
 }
 
+#input-text.dark-mode{
+    border: 0px solid rgba(255, 255, 255, 0);
+}
+
 svg.dark-mode{
     fill: var(--color-white-2);
 }
 
 .btn-ui.dark-mode:hover{
     background-color: var(--color-black-3);
+}
+
+li.dark-mode:hover{
+    background-color: var(--color-black-2);
 }
 
 /* light mode */
@@ -163,10 +169,18 @@ body.light-mode{
     background-color: var(--color-white-2);
 }
 
+#input-text.light-mode{
+    border: 1px solid var(--color-black-3);
+}
+
 svg.light-mode{
     fill: var(--color-black-2);
 }
 
 .btn-ui.light-mode:hover{
     background-color: var(--color-black-3);
+}
+
+li.light-mode:hover{
+    background-color: var(--color-white-2);
 }
